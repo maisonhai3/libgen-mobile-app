@@ -1,0 +1,26 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "hostRequirements": {
+    "cpus": 4
+  },
+  "waitFor": "onCreateCommand",
+  "updateContentCommand": "cd libgen && npx expo start",
+  "postCreateCommand": "",
+  "postAttachCommand": {
+    "server": "npx expo start"
+  },
+  "customizations": {
+    "codespaces": {
+      "openFiles": [
+        "libgen/App.js"
+      ]
+    }
+  },
+  "portsAttributes": {
+    "3000": {
+      "label": "Application",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "forwardPorts": [3000]
+}
