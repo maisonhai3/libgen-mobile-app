@@ -47,12 +47,11 @@ async function idFetch(options) {
   const sortmode = options.reverse ? "DESC" : "ASC";
   const closestpage = localoffset ? Math.floor(localoffset / 25) + 1 : 1;
 
-  let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   const query = `${options.mirror}/search.php?&req=${encodeURIComponent(options.query)}&view=detailed&column=${column}&sort=${sort}&sortmode=${sortmode}&page=${closestpage}`;
 
   try {
-    const response = await axios.get(proxyUrl + query);
-    console.log("response", response.data);
+    const response = await axios.get(query);
+    // console.log("response", response.data);
 
     let results = response.data.match(RESULT_REGEX);
     if (results === null)
@@ -116,7 +115,10 @@ export default async function LibgenSearch(options) {
 
     try {
       const response = await axios.get(url);
-      return JSON.parse(response.data);
+      // console.log("response from url", response);
+      console.log("response from final url", response.data);
+      // return JSON.parse(response.data);
+      return response.data;
     } catch (err) {
       throw err;
     }

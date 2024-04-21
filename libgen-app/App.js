@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
+import { useEffect, useState } from 'react';
+
 import LibgenSearch from './search_react';
 
 const options = {
@@ -9,15 +11,38 @@ const options = {
   sort_by: 'year',
   reverse: true
 }
-console.log("options: ", options);
 
-let results = LibgenSearch(options);
-console.log("results: ", results);
+async function fetchData() {
+  let results = await LibgenSearch(options);
+  console.log("result from LibgenSearch: ", results);
+}
+
+fetchData();
 
 export default function App() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    let results = await LibgenSearch(options);
+    setData(results);
+  }
+
   return (
     <View>
-      <Text>Open up App.js to start working on your app!</Text>
+      {data.map((item, index) => (
+        <View key={index}>
+          <Text>{item.language}</Text>
+          <Text>{item.lbc}</Text>
+          <Text>{item.lcc}</Text>
+          <Text>{item.library}</Text>
+          <Text>{item.local}</Text>
+          <Text>{item.locator}</Text>
+        </View>
+      ))}
       <StatusBar style="auto" />
     </View>
   );
