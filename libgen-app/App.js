@@ -32,18 +32,25 @@ export default function App() {
   }
 
   return (
-    <View>
-      {data.map((item, index) => (
-        <View key={index}>
-          <Text>{item.language}</Text>
-          <Text>{item.lbc}</Text>
-          <Text>{item.lcc}</Text>
-          <Text>{item.library}</Text>
-          <Text>{item.local}</Text>
-          <Text>{item.locator}</Text>
-        </View>
-      ))}
-      <StatusBar style="auto" />
+    <>
+    <View style={{flex: 1, flexDirection: 'column', backgroundColor: "red"}}>
+      <View style={{flex: 0.3, flexDirection: 'column', backgroundColor: "green", alignItems:"center", justifyContent: "center"}}>
+        <Text style={{fontWeight: 'light'}} numberOfLines={1}>Lib<Text style={{fontWeight: 'bold'}}>Gen</Text> </Text> 
+      </View>
     </View>
+      {/* <View>
+        {data.map((item, index) => (
+          <View key={index}>
+            <Text>{item.language}</Text>
+            <Text>{item.lbc}</Text>
+            <Text>{item.lcc}</Text>
+            <Text>{item.library}</Text>
+            <Text>{item.local}</Text>
+            <Text>{item.locator}</Text>
+          </View>
+        ))}
+        <StatusBar style="auto" />
+      </View> */}
+    </>
   );
 }
