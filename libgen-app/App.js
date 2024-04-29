@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert, TouchableOpacity} from 'react-native';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -17,13 +17,17 @@ function RenderScrollView({ data }) {
   return (
     <ScrollView>
       {data.map((item, index) => (
-        <View key={item.id} style={styles.item}>
+        <TouchableOpacity
+          key={item.id}
+          style={styles.item}
+          onPress={() => Alert.alert('Item MD5', item.md5)}
+        >
           <Text>{item.title}</Text>
           <Text>{item.language}</Text>
           <Text>{item.author}</Text>
           <Text>{item.year}</Text>
           <Text>{item.locator}</Text>
-        </View>
+        </TouchableOpacity>
       ))}
     </ScrollView>
   );
@@ -36,15 +40,8 @@ export default function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchData().catch(e => {
-      console.error('Error occurred: ', e);
-    });
+    LibgenSearch(options).then(setData).catch(console.error);
   }, []);
-
-  async function fetchData() {
-    let results = await LibgenSearch(options);
-    setData(results);
-  }
 
   return (
     <View style={styles.container}>
