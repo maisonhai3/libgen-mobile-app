@@ -1,15 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View, ScrollView} from 'react-native';
 import { useEffect, useState } from 'react';
 
 import LibgenSearch from './search_react';
-import React from 'react';
-import testData from './test_data.json';
 
 const options = {
   mirror: 'http://gen.lib.rus.ec',
-  query: 'cats',
-  count: 5,
+  query: 'Pragmatic Developer',
+  // count: 5,
   sort_by: 'year',
   reverse: true
 }
@@ -34,39 +32,34 @@ export default function App() {
   }
 
   return (
-    <>
-      <View style={{flex: 1, flexDirection: 'column', backgroundColor: "red"}}>
-        <View style={{flex: 0.3, flexDirection: 'column', backgroundColor: "green", alignItems:"center", justifyContent: "center"}}>
-          <Text style={{fontWeight: 'light'}} numberOfLines={1}>Lib<Text style={{fontWeight: 'bold'}}>Gen</Text> </Text> 
-        </View>
-        <ScrollView style={{flex: 0.7, backgroundColor: 'gray', paddingHorizontal: 40, paddingVertical: 40}}>
-          <ScrollView style={{backgroundColor: 'gray', paddingHorizontal: 40, paddingVertical: 40}}>
-            {testData.map((item, index) => (
-              <View key={index} style={{backgroundColor: "blue", borderColor: "red", borderWidth: 1, padding: 10}}>
-                <Text>{item.language}</Text>
-                <Text>{item.lbc}</Text>
-                <Text>{item.lcc}</Text>
-                <Text>{item.library}</Text>
-                <Text>{item.local}</Text>
-                <Text>{item.locator}</Text>
-              </View>
-            ))}
-          </ScrollView>
-        </ScrollView>
-      </View>
-      {/* <View>
+    <View style={styles.container}>
+      <ScrollView>
         {data.map((item, index) => (
-          <View key={index}>
+          <View key={item.id} style={styles.item}>
+            <Text>{item.title}</Text>
             <Text>{item.language}</Text>
-            <Text>{item.lbc}</Text>
-            <Text>{item.lcc}</Text>
-            <Text>{item.library}</Text>
-            <Text>{item.local}</Text>
+            <Text>{item.author}</Text>
+            <Text>{item.year}</Text>
             <Text>{item.locator}</Text>
           </View>
         ))}
-        <StatusBar style="auto" />
-      </View> */}
-    </>
+      </ScrollView>
+      <StatusBar style="auto" />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    // height: 44,
+    margin: 10,
+  },
+});
