@@ -36,7 +36,9 @@ export default function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchData().then(r => console.log(r)).catch(e => console.error(e));
+    fetchData().catch(e => {
+      console.error('Error occurred: ', e);
+    });
   }, []);
 
   async function fetchData() {
@@ -46,7 +48,22 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>LibGen</Text>
+      </View>
+
+      <Text
+        style={{ padding: 20, fontSize: 30, color: 'black' }}>
+        {/*numberOfLines={3}>*/}
+        Welcome to <Text style={{ fontWeight: 'bold' }}>LibGen</Text>
+      </Text>
+
+      <Text style={{ padding: 20, fontSize: 20, color: 'black' }}>
+        Searching for "<Text style={{ fontWeight: 'bold' }}>{options.query}"</Text>
+      </Text>
+
       <RenderScrollView data={data} />
+
       <StatusBar style="auto" />
     </View>
   );
@@ -58,6 +75,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  header: {
+    width: '100%',
+    padding: 10,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   item: {
     padding: 10,
